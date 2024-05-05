@@ -80,3 +80,47 @@ for (var section in resume) {
     console.log(resume[section]);
   }
 }
+
+// For of loop method
+
+for (let key of Object.keys(resume)) {
+  if (Array.isArray(resume[key])) {
+      console.log(key + ":");
+      for (let item of resume[key]) {
+          for (let prop of Object.keys(item)) {
+              console.log(prop + ": " + item[prop]);
+          }
+          console.log("--------");
+      }
+  } else if (typeof resume[key] === 'object') {
+      console.log(key + ":");
+      for (let prop of Object.keys(resume[key])) {
+          console.log(prop + ": " + resume[key][prop]);
+      }
+  } else {
+      console.log(key + ": " + resume[key]);
+  }
+  console.log("--------");
+}
+
+
+//forEach  loop method
+
+Object.entries(resume).forEach(([key, value]) => {
+  if (typeof value === 'object' && !Array.isArray(value)) {
+    console.log(`${key}:`);
+    Object.entries(value).forEach(([subKey, subValue]) => {
+      console.log(`  ${subKey}: ${subValue}`);
+    });
+  } else if (Array.isArray(value)) {
+    console.log(`${key}:`);
+    value.forEach((item, index) => {
+      console.log(`  ${index + 1}.`);
+      Object.entries(item).forEach(([subKey, subValue]) => {
+        console.log(`    ${subKey}: ${subValue}`);
+      });
+    });
+  } else {
+    console.log(`${key}: ${value}`);
+  }
+});
